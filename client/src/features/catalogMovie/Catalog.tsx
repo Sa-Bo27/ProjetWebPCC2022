@@ -34,7 +34,7 @@ const Catalog = () => {
   if (page) params.append("page", page.toString());
 
   if (page === 0) {
-    setPage(1);
+    // setPage(1);
     params.append("page", nb.toString());
   }
 
@@ -108,10 +108,10 @@ const Catalog = () => {
           </Col>
          ))}
       </Row>
-      {/* <br/>
-      <Stack  style={{position:'absolute', left:555, }}>
+      <br/>
+      {/* <Stack  style={{position:'absolute', left:555, }}>
       <Typography>Page: {movies?.page}</Typography>
-      <Pagination count={movies?.total_pages} page={movies?.page} onChange={handleChange} />
+      <Pagination count={movies?.total_pages} page={page} onChange={handleChange} />
     </Stack> */}
       
     </>

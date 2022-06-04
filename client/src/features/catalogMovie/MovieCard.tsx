@@ -12,7 +12,7 @@ const MovieCard = ({ movie }: Props) => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const url = "https://localhost:7280/api/";
   const [token, SetToken] = useState<string>();
-
+  const[send, setSend] = useState(false);
   useEffect(() => {
     const getToken = async () => {
       const domain = "localhost:7280";
@@ -48,6 +48,7 @@ const MovieCard = ({ movie }: Props) => {
         request
       );
       console.log(result.status);
+      setSend(true);
     } catch (error) {
       console.log(error);
     }
@@ -80,11 +81,12 @@ const MovieCard = ({ movie }: Props) => {
           {/* <Card.Text style={{maxHeight: 300}}>{movie.overview}</Card.Text> */}
           {isAuthenticated && (
             <Button
-              variant="secondary"
+              variant={!send? "secondary": "success"}
               onClick={() => handleClick()}
               style={{ marginLeft: 70, marginTop: 10 }}
             >
-              Add To List
+              {!send? "Add": "Added"}
+              
             </Button>
           )}
         </Card.Body>

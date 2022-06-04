@@ -123,11 +123,11 @@ const ListMovieUser = () => {
           {/* <Card.Text style={{maxHeight: 300}}>{movie.overview}</Card.Text> */}
           {isAuthenticated && (
             <Button
-              variant="secondary"
+              variant={!result? "danger": "success"}
               onClick={() => handleClick(movie.id)}
               style={{ marginLeft: 70, marginTop: 10 }}>
-              {!result?            
-              'Remove To List': 'its remove'}
+                          
+              Remove 
             </Button>
           )}
         </Card.Body>

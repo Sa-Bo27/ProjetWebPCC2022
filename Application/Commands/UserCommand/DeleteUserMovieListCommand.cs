@@ -1,3 +1,4 @@
+using Application.Common.Behaviours;
 using Application.Common.Exceptions;
 using Application.Common.Interfaces;
 using AutoMapper;
@@ -39,10 +40,16 @@ namespace Application.Commands.UserCommand
 
             await _context.SaveChangesAsync(cancellationToken);
 
-            var movieDom= await _context.MoviesDm.Where(x => x.Users.Contains(user)).FirstOrDefaultAsync();
-            movieDom.Users.Remove(user); //TODO regler le bug null ref ici
-
+            // var movieDom= await _context.MoviesDm.Where(x => x.Users.Contains(user)).FirstOrDefaultAsync();
+            // movieDom.Users.Remove(user); //TODO regler le bug null ref 
+            try{
+                _context.MoviesDm.Remove(movie);
             await _context.SaveChangesAsync(cancellationToken);
+            }catch(ValidationException e){
+                Console.WriteLine(e.Errors);
+                throw new ValidationException();
+            }
+            
 
             return Unit.Value;
         }
