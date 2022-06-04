@@ -35,9 +35,8 @@ namespace Application
             
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("read:movieDom", policy => policy.Requirements.Add(new HasScopeRequirement("read:movieDom", domain)));
-                options.AddPolicy("write:movieDto", policy => policy.Requirements.Add(new HasScopeRequirement("write:movieDto", domain)));
                 options.AddPolicy("read:user", policy => policy.Requirements.Add(new HasScopeRequirement("read:user", domain)));
+                options.AddPolicy("write:movie", policy => policy.Requirements.Add(new HasScopeRequirement("write:movie", domain)));
             });
 
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();

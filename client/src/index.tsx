@@ -15,6 +15,8 @@ root.render(
       domain="dev-gi8iib45.us.auth0.com" 
       clientId="72VO5odflD2bdHYjIpkS3jpzB43zrfnJ"
       redirectUri={window.location.origin}
+      audience="https://localhost:7280"
+      scope="read:user write:movie"
       >
         
       <App />

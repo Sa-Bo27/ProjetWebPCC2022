@@ -6,18 +6,21 @@ import Header from "./Header";
 import Home from "./Home";
 
 function App() {
+ 
   return (
     <>
       <Header />
       <BrowserRouter>
         <Routes>
-          <Route path="home" element={<Home/>}/>
-          <Route path="/" element={<Home/>}/>
-          <Route path="catalog" element={<Catalog/>}/>
-          <Route path="myList" element={<ListMovieUser/>}/>
+          <Route path="home" element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="catalog" element={<Catalog />} />
+          <Route
+            path="myList"
+            element={<ListMovieUser  />}
+          />
         </Routes>
       </BrowserRouter>
-      
     </>
   );
 }

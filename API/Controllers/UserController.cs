@@ -1,5 +1,6 @@
 using Application.Commands.UserCommand;
 using Application.Queries;
+using Application.RequestHelpers;
 using Domain.Entites;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -19,14 +20,12 @@ namespace API.Controllers
         /// <summary>
         /// Retrieves a specific user by unique id or email
         /// </summary>
-        [HttpGet("GetUser")]
+        [HttpGet("GetUserList")]
         [Authorize("read:user")]
-        public async Task<ActionResult<User>> GetUser( string email)
+        public async Task<ActionResult<List<MovieDto>>> GetUserList(string email)
         {
 
-            
-
-            if (email != null) return await _mediator.Send(new GetUserQuery { Email = email });
+            if (email != null) return await _mediator.Send(new GetUserListQuery { Email = email });
 
             return NotFound();
 
@@ -52,13 +51,23 @@ namespace API.Controllers
         /// <summary>
         /// Delete a specific movie from a user list 
         /// </summary>
-        [HttpDelete("DeleteMovieFromList/{id}")]
-        public async Task<ActionResult> DeleteMovie(int id)
+        [HttpDelete("DeleteMovieFromList")]
+        public async Task<ActionResult> DeleteMovie( [FromQuery] DeleteUserMovieListCommand command)
         {
+            if(command.MovieId<=0) return BadRequest();
 
-            await _mediator.Send(id);
+            await _mediator.Send(command);
 
             return NoContent();
+        }
+
+        [HttpGet("claims")]
+        public IActionResult Claims(){
+            return Ok(User.Claims.Select(c => new {
+                c.Type,
+                c.Value
+                
+            }));
         }
     }
 }

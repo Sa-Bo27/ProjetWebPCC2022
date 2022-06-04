@@ -1,14 +1,14 @@
 import axios from "axios";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import { Result } from "../../app/models/movie";
 import { InputGroup, Button, FormControl, Stack, Row, Col } from "react-bootstrap";
 import MovieCard from "./MovieCard";
+import { Typography, Pagination } from "@mui/material";
 
 
 
 const Catalog = () => {
   const [movies, setMovies] = useState<Result>();
- 
   const [movieToFind, setMovieTofind] = useState<string>();
   const [page, setPage] = useState<number>();
   const [includeAdulte, setIncludeAdulte] = useState<boolean>();
@@ -19,9 +19,6 @@ const Catalog = () => {
   const [isLoading, setIsLoading] = useState(false);
   
 
-  
-  
-
   const movieAxios = axios.create({
     baseURL: baseUrl,
     headers: {
@@ -30,6 +27,8 @@ const Catalog = () => {
   });
 
   
+  //configuration params for request to api
+
   if (movieToFind) params.append("movieToFind", movieToFind);
 
   if (page) params.append("page", page.toString());
@@ -43,6 +42,8 @@ const Catalog = () => {
     setIncludeAdulte(true);
     params.append("includeAdulte", includeAdulte);
   }
+
+    //add an hook (useeffect)?
 
   const fetchMoviesByName = async () => {
     try {
@@ -70,11 +71,19 @@ const Catalog = () => {
       e.preventDefault();
       fetchMoviesByName();
   }
+ //setpage for pagination 
+
+//  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+//   setPage(value);
+//   fetchMoviesByName();
+//  };
+  //fetch data for the first time befor searching
 
   if(!movieToFind && isLoading=== false){ 
       fetchMoviesPopular();
       setIsLoading(true);
 }
+
 
   return (
     <>
@@ -99,6 +108,11 @@ const Catalog = () => {
           </Col>
          ))}
       </Row>
+      {/* <br/>
+      <Stack  style={{position:'absolute', left:555, }}>
+      <Typography>Page: {movies?.page}</Typography>
+      <Pagination count={movies?.total_pages} page={movies?.page} onChange={handleChange} />
+    </Stack> */}
       
     </>
   );

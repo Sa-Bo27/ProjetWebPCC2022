@@ -1,4 +1,6 @@
 using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using API.Filters;
 using Application;
 using ConsumeApi.Service;
@@ -10,9 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
 // Add services to the container.
 
-builder.Services.AddControllers(opt =>
-opt.Filters.Add<OnExceptionFilter>()
-);
+builder.Services.AddControllers(opt =>{
+opt.Filters.Add<OnExceptionFilter>();
+
+ 
+});
 
 //Injection serilog and write in a file
 Log.Logger = new LoggerConfiguration()
@@ -87,7 +91,7 @@ app.UseHttpsRedirection();
 
 app.UseCors(opt =>
 {
-    opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+    opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:3000");
 });
 app.UseAuthentication();
 app.UseAuthorization();

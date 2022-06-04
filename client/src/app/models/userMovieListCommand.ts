@@ -17,3 +17,8 @@
         id: number;
         movieDto: MovieDto;
     }
+
+    export interface RequestDeleteMovie{
+        email: string;
+        idMovie: number;
+    }

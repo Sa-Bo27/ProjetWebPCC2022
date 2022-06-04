@@ -7,8 +7,7 @@ namespace Application.Validator
     {
         public UpdateUserMovieListCommandValidator()
         {
-            RuleFor(x => x.Id).NotEmpty();
-            RuleFor(x => x.MovieDto).NotEmpty().NotNull();
+            RuleFor(x => x.MovieDto).NotEmpty();
         }
     }
 }

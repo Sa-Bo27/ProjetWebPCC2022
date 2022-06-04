@@ -1,3 +1,5 @@
+
+
 export interface ListMovie {
     adult: boolean;
     backdrop_path: string;
@@ -9,7 +11,7 @@ export interface ListMovie {
     poster_path: string;
     release_date: string;
     title: string;
-    users: string[];
+    
 }
 
 export interface UserQuery {
